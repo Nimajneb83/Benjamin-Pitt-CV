@@ -1,0 +1,547 @@
+%-----------------------------------------------------------------------------------------------------------------------------------------------%
+%	The MIT License (MIT)
+%
+%	Copyright (c) 2021 Jitin Nair
+
+
+% article class because we want to fully customize the page and not use a cv template
+\documentclass[a4paper,12pt]{article}
+
+%----------------------------------------------------------------------------------------
+%	FONT
+%----------------------------------------------------------------------------------------
+%\usepackage{palatino}
+ % fontspec allows you to use TTF/OTF fonts directly
+\usepackage{fontspec}
+\defaultfontfeatures{Ligatures=TeX}
+
+% Set main font to Adobe Garamond Pro from your local fonts folder
+\setmainfont[
+  Path = ./fonts/, % folder where the font files are
+  UprightFont = *-Regular.otf,
+  BoldFont = *-Bold.otf,
+  ItalicFont = *-Italic.otf,
+  BoldItalicFont = *-BoldItalic.otf
+  %SmallCapsFont = *-SmallCaps.otf
+]{AGaramondPro} 
+
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES
+%----------------------------------------------------------------------------------------
+\usepackage{url}
+\usepackage{parskip} 	
+\usepackage{comment}
+
+%other packages for formatting
+\RequirePackage{color}
+\RequirePackage{graphicx}
+\usepackage[usenames,dvipsnames]{xcolor}
+\definecolor{burgundy}{HTML}{800020} % your burgundy
+\usepackage[scale=0.9]{geometry}
+
+%tabularx environment
+\usepackage{tabularx}
+\usepackage{longtable}
+
+%for lists within experience section
+\usepackage{enumitem}
+
+% centered version of 'X' col. type
+\newcolumntype{C}{>{\centering\arraybackslash}X} 
+
+%to prevent spillover of tabular into next pages
+\usepackage{supertabular}
+\usepackage{tabularx}
+\newlength{\fullcollw}
+\setlength{\fullcollw}{0.47\textwidth}
+
+%custom \section
+\usepackage{titlesec}
+
+\usepackage{multicol}
+\usepackage{multirow}
+
+%CV Sections inspired by: 
+%http://stefano.italians.nl/archives/26
+\titleformat{\section}{\Large\scshape\raggedright}{}{0em}{}[\titlerule]
+%\titlespacing{\section}{0pt}{10pt}{10pt}
+\titlespacing*{\section}
+  {0pt}   % left margin
+  {0.3em plus 0.2em minus 0.2em} % space before
+  {0.3em plus 0.1em minus 0.1em} % space after
+
+
+
+
+%for PUBLICATIONS
+\usepackage[backend=biber, style=apa, sorting=ydnt, maxbibnames=10, dashed=false, doi=false, url=false, notes=false]{biblatex}
+
+\defbibfilter{notinpress}{ % Prevents double-listing inpress items
+  not keyword=inpress
+}
+
+
+
+%Setup hyperref package, and colours for links
+\usepackage[unicode, draft=false]{hyperref}
+\definecolor{linkcolour}{rgb}{0,0.2,0.6}
+\hypersetup{colorlinks,breaklinks,urlcolor=burgundy,linkcolor=burgundy}
+\addbibresource{citations.bib}
+%\DeclareFieldFormat{journaltitle}{% For clickable journal titles
+%  \iffieldundef{doi}
+%    {#1}
+%    {\href{https://doi.org/\thefield{doi}}{#1}}}
+
+\DeclareFieldFormat[article]{title}{% For clickable titles
+  \iffieldundef{doi}
+    {#1}%
+    {\href{https://doi.org/\thefield{doi}}{#1}}}
+
+
+
+\setlength\bibitemsep{1em}
+
+%for social icons
+\usepackage{fontawesome5}
+
+%debug page outer frames
+%\usepackage{showframe}
+
+
+% job listing environments
+\newenvironment{jobshort}[2]
+    {
+    \begin{tabularx}{\linewidth}{@{}l X r@{}}
+    \textbf{#1} & \hfill &  #2 \\[3.75pt]
+    \end{tabularx}
+    }
+    {
+    }
+
+\newenvironment{joblong}[2]
+    {
+    \begin{tabularx}{\linewidth}{@{}l X r@{}}
+    \textbf{#1} & \hfill &  #2 \\[3.75pt]
+    \end{tabularx}
+    \begin{minipage}[t]{\linewidth}
+    \begin{itemize}[nosep,after=\strut, leftmargin=1em, itemsep=3pt,label=--]
+    }
+    {
+    \end{itemize}
+    \end{minipage}    
+    }
+
+
+
+%----------------------------------------------------------------------------------------
+%	BEGIN DOCUMENT
+%----------------------------------------------------------------------------------------
+\begin{document}
+
+% non-numbered pages
+\pagestyle{empty} 
+
+%----------------------------------------------------------------------------------------
+%	TITLE
+%----------------------------------------------------------------------------------------
+
+% \begin{tabularx}{\linewidth}{ @{}X X@{} }
+% \huge{Your Name}\vspace{2pt} & \hfill \emoji{incoming-envelope} email@email.com \\
+% \raisebox{-0.05\height}\faGithub\ username \ | \
+% \raisebox{-0.00\height}\faLinkedin\ username \ | \ \raisebox{-0.05\height}\faGlobe \ mysite.com  & \hfill \emoji{calling} number
+% \end{tabularx}
+
+%\definecolor{linkblack}{HTML}{000000} % black for links and icons
+
+\begin{tabularx}{\linewidth}{@{} l X r @{}}
+\Huge{\textcolor{burgundy}{BENJAMIN PITT}} & & 
+\makebox[0pt][r]{%
+\begin{tabular}{r}
+\href{https://cognitiveconstructionlab.com/}{\textcolor{burgundy}{\raisebox{-0.05\height}\faGlobe \ cognitiveconstructionlab.com}} \\[2pt] 
+\href{mailto:bpitt@umass.edu}{\textcolor{burgundy}{\raisebox{-0.05\height}\faEnvelope \ bpitt@umass.edu}}
+\end{tabular}%
+} \\
+\end{tabularx}
+\\[4pt]
+
+
+
+%----------------------------------------------------------------------------------------
+% EXPERIENCE SECTIONS
+%----------------------------------------------------------------------------------------
+\begin{comment}
+%Interests/ Keywords/ Summary
+\section{Summary}
+This CV can also be automatically complied and published using GitHub Actions. For details, \href{https://github.com/jitinnair1/autoCV}{click here}.
+
+%Experience
+\section{Work Experience}
+
+\begin{jobshort}{Designation}{Jan 2021 - present}
+long long line of blah blah that will wrap when the table fills the column width long long line of blah blah that will wrap when the table fills the column width long long line of blah blah that will wrap when the table fills the column width long long line of blah blah that will wrap when the table fills the column width
+\end{jobshort}
+
+
+\begin{joblong}{Designation}{Mar 2019 - Jan 2021}
+\item long long line of blah blah that will wrap when the table fills the column width
+\item again, long long line of blah blah that will wrap when the table fills the column width but this time even more long long line of blah blah. again, long long line of blah blah that will wrap when the table fills the column width but this time even more long long line of blah blah
+\end{joblong}
+  
+%Projects
+\section{Projects}
+
+\begin{tabularx}{\linewidth}{ @{}l r@{} }
+\textbf{Some Project} & \hfill \href{https://some-link.com}{Link to Demo} \\[3.75pt]
+\multicolumn{2}{@{}X@{}}{long long line of blah blah that will wrap when the table fills the column width long long line of blah blah that will wrap when the table fills the column width long long line of blah blah that will wrap when the table fills the column width long long line of blah blah that will wrap when the table fills the column width}  \\
+\end{tabularx}
+
+\end{comment}
+
+%----------------------------------------------------------------------------------------
+%	EDUCATION
+%----------------------------------------------------------------------------------------
+\section{Education \& Academic Positions}
+\textbf{University of Massachusetts, Amherst} \hfill  beginning September, 2026 \\
+Assistant Professor of Psychological and Brain Sciences 
+
+\textbf{Institute for Advanced Study in Toulouse}, Toulouse School of Economics \hfill  9.23 – present \\
+Research Fellow
+
+\textbf{University of California, Berkeley}, Department of Psychology \\
+Postdoctoral Fellow with Steven Piantadosi \& Alison Gopnik \hfill 10.21 – 9.23 \\
+Postdoctoral Researcher with Steven Piantadosi \& Edward Gibson (at MIT)\hfill  10.18 – 10.21
+
+\textbf{University of Chicago}, Department of Psychology \hfill 9.13 – 6.18 \\
+PhD in Psychology (with Daniel Casasanto)  \hfill 6.18 \\
+MA in Psychology \hfill  9.15
+
+\textbf{The New School for Social Research}, Department of Psychology \hfill 8.12 – 8.13 \\
+First-year graduate student 
+
+\textbf{Brown University}, Department of Psychology \hfill 9.02 – 05.06 \\
+BS in Cognitive Neuroscience (with Steven Sloman)
+
+
+%\end{tabularx}
+
+%----------------------------------------------------------------------------------------
+%	AWARDS
+%----------------------------------------------------------------------------------------
+\section{Grants \& Awards}
+\setlength{\tabcolsep}{6pt}      % horizontal padding
+\renewcommand{\arraystretch}{1.1} % vertical spacing between rows
+
+\noindent
+\begin{tabular*}{\textwidth}{@{\extracolsep{\fill}} r p{0.85\textwidth} r}
+  2025 & \textbf{Starting Grant} (collaborator), European Research Council, awarded to S. Lew-Levy & €1.5M \\
+  2024 & \textbf{Best Data Blitz presentation}, iNav conference & \\
+  2023 & \textbf{Research Fellowship}, Institute for Advanced Study in Toulouse & €137k \\
+       & \textbf{Research Fellowship}, Smith-Kettlewell Eye Research Institute (declined) & \$158k \\
+  2022 & \textbf{Collaboration grant}, McDonnell Network on Abstract Combinatorial Thought & \$20k \\
+  2021 & \textbf{SBE Postdoctoral Research Fellowship}, National Science Foundation (\#2105434) & \$148k \\
+  2019 & \textbf{Postdoctoral scholarship}, McDonnell Network on Abstract Combinatorial Thought & \\
+  2017 & \textbf{Graduate Travel Award}, Annual Meeting of the Psychonomic Society & \\
+       & \textbf{Graduate Council Travel Award}, University of Chicago & \\
+  2016 & \textbf{GRAD Global Impact Award}, University of Chicago & \\
+       & \textbf{Student Travel Award}, Robert J. Glushko and Pamela Samuelson Foundation & \\
+  2014 & \textbf{NSF Graduate Research Fellowship Program}, Honorable mention & \\
+  2013 & \textbf{Student Travel and Conference Award}, New School for Social Research & \\
+  2012 & \textbf{Dean’s Fellowship}, New School for Social Research & \\
+  2006 & \textbf{Rosenberger Prize} for excellence in honors research and coursework, Brown University
+  
+\end{tabular*}
+
+
+%----------------------------------------------------------------------------------------
+%	PUBLICATIONS
+%----------------------------------------------------------------------------------------
+\section{Publications}
+\begin{refsection}[papers.bib]
+\nocite{*}
+
+\subsection*{Forthcoming}
+\printbibliography[heading=none, keyword=forthcoming]
+
+\subsection*{Preprints}
+\printbibliography[heading=none, keyword=preprint]
+
+\subsection*{Journal articles} 
+\printbibliography[heading=none, keyword=paper, notkeyword=forthcoming] %filter=notinpress 
+
+\subsection*{Conference proceedings}
+\printbibliography[heading=none, keyword=conference]
+
+
+
+%\subsection*{Manuscripts in progress} % Select by type
+%\printbibliography[heading=none, keyword=inprogress]
+
+\end{refsection}
+
+
+
+%----------------------------------------------------------------------------------------
+%	PRESENTATIONS
+%----------------------------------------------------------------------------------------
+\section{Conference Presentations}
+
+\textbf{Pitt, B. }\& Jang, H. (2025, July). \textit{Spatial language and memory diverge in BaYaka hunter-gatherers.} Paper presented at the Annual Meeting of the Cognitive Science Society, San Francisco, California.
+
+\textbf{Pitt, B.} (2024, July). \textit{Multidimensional spatial memory: One action, two reference frames.} Paper presented at the Annual Meeting of the Cognitive Science Society, Rotterdam, Netherlands.
+
+\textbf{Pitt, B.} (2024, June). \textit{Spatial reference frames across axes, ages, and cultures}. Paper presented at iNav, Merano, Italy. (Winner of best Data Blitz presentation)
+
+\textbf{Pitt, B.} (2024, April)\textit{.} \textit{All in order: SNARC effects show mappings of order, not magnitude.} Invited talk at Workshop on relations between space, language, and numbers, Tübingen, Germany.
+
+\textbf{Pitt, B.}, Lieb, E., O’Shaughnessy, D., Gallardo, J., Ferrigno, S., \& Piantadosi, S. (2024, April). \textit{Algorithms in the Amazon: Evidence of a general-purpose learning mechanism}. Paper presented at the Annual Conference of the European Human Behaviour and Evolution Association, Montpellier, France.
+
+\textbf{Pitt, B. }\& Gopnik, A. (2024, March). \textit{Spatial memory across axes, ages, and cultures.} Paper presented at the biennial meeting of the Cognitive Development Society, Pasadena, CA.
+
+\textbf{Pitt, B.}, Aalaei, S., \& Gopnik, A. (2023, July). \textit{Flexible spatial memory in children: Different reference frames on different axes. }Poster presented at the 45th Annual Meeting of the Cognitive Science Society, Sydney, Australia.
+
+\textbf{Pitt, B.}, Carstensen, A., Boni, I., Piantadosi, S.T., Gibson, E., Marghetis, T., Holmes, K., Star-Lack, M., Chacon, S., Huey, H., Jordan, M., Hart, Y., Dillon, M., \& Bottini, R. (2022, July). \textit{Dimensions of Diversity in Spatial Cognition: Culture, Context, Age, and Ability. }Symposium presented at the 44th Annual Meeting of the Cognitive Science Society, Toronto, Canada.
+
+\textbf{Pitt, B.}, Carstensen, A., Boni, I., Gibson, E., \& Piantadosi, S.T. (declined) \textit{Individuals Use Different Spatial Reference Frames on Different Axes: Evidence from the Bolivian Amazon}. Poster and flash talk accepted for presentation at the 2022 Annual Convention of the Association for Psychological Science. 
+
+\textbf{Pitt, B.}, Carstensen, A., Boni, I., Gibson, E., \& Piantadosi, S.T. (2022, April) \textit{Different spatial reference frames on different axes: Memory and language among the Tsimane' of Bolivia}. Poster presented at the 2022 Annual Meeting of the Cognitive Neuroscience Society, San Francisco, CA.
+
+\textbf{Pitt, B.,} Gibson, E., \& Piantadosi, S.T. (2021, June) \textit{Exact Number Concepts Are Limited By Language.} Paper presented at the 47th Annual Meeting of the Society for Philosophy and Psychology, Princeton, NJ.
+
+\textbf{Pitt, B.}, Carstensen, A., Gibson, E., \& Piantadosi, S.T. (2021, July) \textit{Variation in spatial concepts: Different frames of reference on different axes. }Poster presented at the 43rd Annual Meeting of the Cognitive Science Society.
+
+\textbf{Pitt, B.}, Gibson, E., \& Piantadosi, S.T. (2021, March) \textit{The role of language in exact number concepts: Evidence from the Tsimane’.} Paper presented at the McDonnell workshop on the logical foundations of numerical cognition.
+
+\textbf{Pitt, B.}, Casasanto, D., Ferrigno, S., Gibson, E., \& Piantadosi, S.T. (2020, July) \textit{Multi-directional mappings in the minds of the Tsimane’: Size, time, and number on three spatial axes. }Paper presented at the 42nd Annual Meeting of the Cognitive Science Society.
+
+\textbf{Pitt, B.}, Gibson, E., \& Piantadosi, S.T. (2020, July) \textit{Number concepts depend on language.} Poster presented at the 42nd Annual Meeting of the Cognitive Science Society, Austin, TX.
+
+\textbf{Pitt, B.}, Schneider, R., Ferrigno, S., Gibson, E., Barner, D., \& Piantadosi, S.T. (2020, July) \textit{Procedures and principles of number: Evidence from the Tsimane’}. Poster accepted for presentation at the 42nd Annual Meeting of the Cognitive Science Society, Austin, TX (declined).
+
+Tsay, J., King, M., McDougle, S., \textbf{Pitt, B.}, \& Ivry, R. (2019, October). \textit{Continuous Representational Transformations: Evidence that the Cerebellum Coordinates Movement on the Mental Number-line}. Poster presented at the 49th Annual Meeting of the Society for Neuroscience, Chicago, IL. 
+
+Cheyette, S.J., \textbf{Pitt, B.}, Piantadosi, S.T., Gibson, E. (2019, July). \textit{Math Ability Varies Independently of Number Estimation in the Tsimané.} Poster presented at the 41st Annual Meeting of the Cognitive Science Society, Montréal, Canada.
+
+\textbf{Pitt., B.} \& Casasanto, D. (2019, July). \textit{Ordinality trumps cardinality: What we spatialize when we spatialize numbers}. Poster presented at the 41st Annual Meeting of the Cognitive Science Society, Montréal, Canada.
+
+\textbf{Pitt, B.} \& Casasanto, D. (2019, May). \textit{Ordinality trumps cardinality: What we spatialize when we spatialize numbers}. Poster presented at the 31st Annual Meeting of the Association for Psychological Science, Washington, DC.
+
+Casasanto, D. \& \textbf{Pitt, B}. (2019, May). \textit{How culture shapes abstract concepts: Insights from time and number.} Paper presented at the 31st Annual Convention of the Association for Psychological Science, Washington, DC.
+
+\textbf{Pitt, B.} \& Casasanto, D. (2018, September). \textit{Spatializing time and number: How culture shapes cognitive universals.} Paper presented at the 7th International Conference on Spatial Cognition, Rome, Italy.
+
+Gijssels, T., \textbf{Pitt, B.}, Bottini, R., Battal, C., Collignon, O. \& Casasanto, D. (2018, September). \textit{Modality matters: Space-time mappings differ in vision and audition.} Paper presented at 7th International Conference on Spatial Cognition, Rome, Italy.
+
+\textbf{Pitt, B.}, Scales, K., \& Casasanto, D. (2018, July). \textit{Time and numbers on the fingers: Dissociating the mental timeline and mental number line. }Paper presented at the 40th Annual Meeting of the Cognitive Science Society, Madison, WI.
+
+\textbf{Pitt, B.} \& Casasanto, D. (2017, November). \textit{Spatializing time and number: How culture shapes cognitive universals}. Poster presented at the 58th Annual Meeting of the Psychonomics Society, Vancouver, BC.
+
+\textbf{Pitt, B.} \& Casasanto, D. (2017, May). \textit{Distinct experiential origins of the mental timeline \& mental number line}. Poster presented at the 29th Annual Meeting of the Association for Psychological Science, Boston, MA.
+
+\textbf{Pitt, B.} \& Casasanto, D. (2017, April). \textit{Experiential origins of the mental time line and the mental number line. }Paper presented at the 89th Midwestern Psychological Association Annual Meeting, Chicago, IL.
+
+\textbf{Pitt, B.}, \& Casasanto, D. (2016, July). \textit{Reading experience shapes the mental timeline but not the mental number line. }Paper presented at the 38th Annual Meeting of the Cognitive Science Society, Philadelphia, PA.
+
+\textbf{Pitt, B.}, \& Casasanto, D. (2016, July). \textit{Spatializing emotion: A mapping of valence or magnitude? }Paper presented at the 38th Annual Meeting of the Cognitive Science Society, Philadelphia, PA.
+
+\textbf{Pitt, B.}, \& Casasanto, D. (2016, May). \textit{Experiential origins of the mental time line and the mental number line}. Poster session presented at the 2nd International Meeting of the Psychonomic Society, Granada, Spain. 
+
+\textbf{Pitt, B.}, \& Casasanto, D. (2014, July). \textit{Experiential origins of the mental number line.} Paper presented at the 36th Annual Meeting of the Cognitive Science Society, Quebec City, Canada.
+
+\textbf{Pitt, B.}, \& Casasanto, D. (2014, July). \textit{Experiential origins of the mental number line}. Poster session presented at the Sixth Conference of the International Society for Gesture Studies, San Diego, CA.
+
+
+%----------------------------------------------------------------------------------------
+%	Invited talks
+%----------------------------------------------------------------------------------------
+\section{Invited Talks}
+
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.1}
+
+\noindent
+\begin{longtable}{@{\extracolsep{\fill}} r p{0.43\textwidth} p{0.47\textwidth}}
+% Optional: header row on each page
+%\textbf{Year} & \textbf{Institution} & \textbf{Talk / Lab} \\ 
+%\endfirsthead
+%\multicolumn{3}{c}%
+%{\tablename\ \thetable\ -- continued from previous page} \\
+%\textbf{Year} & \textbf{Institution} & \textbf{Talk / Lab} \\ 
+%\endhead
+%\hline \multicolumn{3}{r}{Continued on next page} \\
+%\endfoot
+%\endlastfoot
+
+  2025 & UC Berkeley \& Columbia University & \textit{Mariam Aly \& Chris Baldassano Labs} \\
+
+  2024 & Institute for Advanced Study in Toulouse & \textit{Lunch Seminar} \\
+       & Duke University & \textit{Dorsa Amir’s Mind \& Culture Lab} \\
+       & Max Planck Institute for Evolutionary Anth. & \textit{Department of Comparative Cultural Psychology} \\
+       & École Normale Supérieure (PSL) & \textit{Département d'Études Cognitives} \\
+       & Université Catholique de Louvain & \textit{Psychological Sciences Research Institute} \\
+
+  2023 & University of New Hampshire & \textit{Psychology Department} \\
+       & University of Edinburgh & \textit{School of Informatics} \\
+
+  2022 & Basque Center on Cognition, Brain, \& Lang. & \textit{External Speaker} \\
+       & Stanford University & \textit{Hyo Gweon’s Social Learning Lab} \\
+       & University of Trento (CIMeC) & \textit{Bottini Lab} \\
+
+  2021 & New School for Social Research & \textit{Psychology Department} \\
+       & Johns Hopkins University & \textit{Barbara Landau’s Language and Cognition Lab} \\
+       & UC Berkeley & \textit{Cognitive/Cognitive Neuroscience Colloquium} \\
+       & UC Berkeley (Developmental Psych) & \textit{Institute of Human Development Colloquium} \\
+       & UC Berkeley (Linguistics) & \textit{Language, Computation, \& Cognition Group} \\
+       & UC Berkeley (Psychology) & \textit{David Whitney’s Lab for Perception and Action} \\
+
+  2020 & MIT & \textit{Ted Gibson’s Language Lab} \\
+       & University of Wisconsin–Madison & \textit{Learning from Language Workshop} \\
+       & UC San Diego & \textit{David Barner Lab} \\
+       & UC Berkeley & \textit{Cognitive Colloquium} \\
+
+  2019 & Stanford University & \textit{Developmental Psychology Brownbag} \\
+       & Brown University & \textit{Developmental Psychology Brownbag} \\
+       & UC Berkeley (Developmental Psych) & \textit{Mahesh Srinivasan Lab} \\
+       & UC Berkeley (Education) & \textit{Graduate School of Education} \\
+       & UC Berkeley (Linguistics) & \textit{Gesture and Multimodality Group} \\
+
+  2018 & MIT & \textit{Ted Gibson’s Language Lab} \\
+       & New York University & \textit{Yaacov Trope Lab} \\
+       & University of Pennsylvania & \textit{Common Ground Seminar} \\
+       & Barnard College & \textit{Koleen McCrink Lab} \\
+       & Columbia University & \textit{Psychology Seminar} \\
+
+  2017 & Cornell University & \textit{Human Development Brown Bag} \\
+       & Indiana University Bloomington & \textit{Cognitive Lunch Series} \\
+       & Google NY & \textit{Jigsaw Team} \\
+       & Northwestern University & \textit{Dedre Gentner Lab} \\
+
+  2016 & Columbia Teachers College & \textit{Barbara Tversky Lab} \\
+
+  2014 & New York University & \textit{Interactive Telecommunications Program} \\
+
+  2013 & Fjord NY & \textit{Design Clinic} \\
+\end{longtable}
+
+%----------------------------------------------------------------------------------------
+%	TEACHING 
+%----------------------------------------------------------------------------------------
+\section{Teaching}
+
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.1}
+
+\noindent
+\begin{longtable}{@{\extracolsep{\fill}} r p{0.45\textwidth} p{0.45\textwidth}}
+2022 & Developmental Proseminar & \textit{UC Berkeley (Guest speaker)} \\[2pt]
+
+2017 & Mind & \textit{University of Chicago} \\[2pt]
+
+2016 & Psychology of Decision Making & \textit{University of Chicago} \\
+     & Cognitive Psychology & \textit{University of Chicago} \\[2pt]
+
+2015 & The Body in the Mind & \textit{University of Chicago} \\[2pt]
+
+2013 & Relativity of Mind & \textit{New School for Social Research (Graduate level)} \\[2pt]
+
+2012 & Experiential Relativity & \textit{New School for Social Research} \\
+\end{longtable}
+
+
+%----------------------------------------------------------------------------------------
+%	Mentoring 
+%----------------------------------------------------------------------------------------
+\section{Mentoring}
+
+\setlength{\tabcolsep}{6pt}
+\renewcommand{\arraystretch}{1.1} % Slightly more vertical spacing for readability
+
+%\noindent
+%\begin{longtable}{@{\extracolsep{\fill}} p{0.20\textwidth} p{0.20\textwidth} p{0.35\textwidth} 
+%\begin{longtable}{@{\extracolsep{\fill}} l p{0.20\textwidth} p{0.20\textwidth} r}
+%{\parindent=0pt \leftskip=0}
+\begin{flushleft}
+\noindent\hspace*{-\tabcolsep}
+\begin{longtable}{@{\extracolsep{\fill}} l p{0.25\textwidth} p{0.20\textwidth} >{\raggedleft\arraybackslash}p{0.33\textwidth}@{}}
+
+\textbf{Level} & \textbf{Name} & \textbf{Institute} & \textbf{Advisory role} \\[4pt] % Extra space after header
+
+% Doctoral students
+Doctoral & Jenna Croteau & UMass Amherst & Dissertation committee member \\ [6pt]
+
+% Masters students
+Masters & Luca Lattanzi & & Thesis co-advisor \\
+ & Srishti Goel* & UChicago & Thesis co-advisor \\[6pt]
+
+% Undergraduate research assistants / project leads
+Undergraduate & Olivia Boettger & UC Berkeley & Project lead \\
+& Tiffany Brailow & UC Berkeley & Project lead \\
+& Erica Luu & UC Berkeley & Project lead \\
+& Maggie Debelak & UC Berkeley & Project lead \\
+& Kai Hung & UC Berkeley & Project lead \\
+& Samuel Gingrich & UC Berkeley & Project lead \\
+& April Mariko Salazar & UC Berkeley & Project lead \\
+& Sahra Aalaei & UC Berkeley & Project lead \\
+& Alaina Heeren & UC Berkeley & Project lead \\
+& Julian Shea & UC Berkeley & Project lead \\
+& Akash Kulgod & UC Berkeley & Project lead \\
+& Vayram Nyadroh & UChicago & Project lead \\
+& Sumer Vaid* & UChicago & Project lead \\
+& Nikolai Maximay & UChicago & Project lead \\
+& Michelle Kim & UChicago & Project lead \\
+& Melissa Grossbarth & UChicago & Project lead \\
+& Kamilah Scales & UChicago & Project lead \\
+& Courtney Gardner & UChicago & Project lead \\
+& Benny Kollek & UChicago & Project lead \\
+& Amritpal Singh* & UChicago & Project lead \\
+& Amanda Dobbyn & UChicago & Project lead \\
+\end{longtable}
+\end{flushleft}
+
+
+%\begin{flushright}
+%* went on to Psychology Ph.D. programs
+%\end{flushright}
+
+%----------------------------------------------------------------------------------------
+%	Service and outreach 
+%----------------------------------------------------------------------------------------
+\section{Service \& Outreach}
+\textbf{Editorial board member:} Frontiers in Psychology
+
+\textbf{Ad hoc reviewer:} Cognition | Cognitive Science | Cognitive Science Society | Cognitive Processing | Developmental Psychology | Journal of Experimental Psychology: General | Journal of Memory and Language | Journal of Vision | Language and Cognition | Language, Cognition, and Neuroscience | Open Mind | Psychological Research | Psychological Science | Scientific Reports | eLife | Nature Communications | Animal Behaviour
+
+\textbf{Member: }New York Academy of Science, Association for Psychological Science | Midwestern Psychological Association | Psychonomic Society | Cognitive Science Society | Royal Institute of Navigation
+
+\textbf{Organizer:} McDonnell workshop on the logical foundations of numerical cognition (2021) | IAST Lunch Seminar Series (2024-25)
+
+\textbf{Volunteer: }The Think Tank, a mobile neuroscience outreach lab (2015-16) | The Future of the Mind, part of “7 Days of Genius” lecture series (2015) | Skype a Scientist (2022)
+
+\textbf{Committee member: }University of California committee to reduce carbon emissions from professional travel (2019-20) | Psychology Graduate Student Professional Development Committee (2015-16)
+
+%----------------------------------------------------------------------------------------
+%	INdustry
+%----------------------------------------------------------------------------------------
+\section{Industry Experience}
+
+\textbf{Research Fellow}, Google, \textit{New York, NY} \hfill  7.17 – 10.17 \\
+Designed and conducted behavioral experiments using virtual reality
+
+\textbf{User Experience Consultant}, CTRL-labs (formerly Cognescent), \textit{New York, NY} \hfill  6.16 – 8.16 \\
+Summer internship at technology startup building novel brain-machine interface (ctrl-labs.com)\\
+Supported by GRAD Global Impact Award from UChicago
+
+\textbf{Interaction Designer}, Fjord, \textit{Berlin, Paris, \& Madrid} \hfill  5.10 – 7.12 \\
+Designed user interfaces for products and services at international design firm
+
+\textbf{Interaction Designer}, Ziba Design, \textit{Portland, OR} \hfill  6.08 – 11.09 \\
+Specialized in information architecture, user experience strategy
+
+\textbf{Design Researcher}, Ziba Design, \textit{Portland, OR} \hfill  11.07 – 6.08 \\
+Designed and conducted ethnographic user research and usability tests
+
+
+\vfill
+\center{\footnotesize Last updated: \today}
+
+\end{document}
